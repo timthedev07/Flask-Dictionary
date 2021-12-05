@@ -1,4 +1,10 @@
-{% extends "layout.html" %} {% block main %}
-<h1>Hello World from Flask</h1>
-<button class="btn btn-primary">PRESS</button>
+{% extends "layout.html" %}
+{% block main %}
+  <h1>FlaskDictionary</h1>
+  <a href="/add"><button class="btn btn-secondary">Add Word</button></a>
+  {% for row in rows %}
+    <li class="list-unstyled">
+      <a class="text-info" href="/{{ row[1] }}">{{ row[1] }}</a>
+    </li>
+  {% endfor %}
 {% endblock %}

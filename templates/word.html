@@ -8,16 +8,19 @@
   <h2>{{ row[1][0]|upper}}{{ row[1][1:] }}</h2>
   <p>{{ row[2] }}</p>
   <button data-wordId={{ row[0] }} id="del-word-button" class="btn btn-danger">Delete word</button>
+  <a href="/edit/{{ row[1] }}">
+    <button class="btn btn-info">Edit Word</button>
+  </a>
+
   <script>
-    const button = document.querySelector("#del-word-button");
-    button.addEventListener("click", async () => {
+    const deleteButton = document.querySelector("#del-word-button");
+    deleteButton.addEventListener("click", async () => {
       const response = confirm("Are you sure to delete this word?");
       if (response) {
-        // do stuff here
         const result = await fetch("/delete-word", {
           method: "DELETE",
           body: JSON.stringify({
-            wordId: button.getAttribute("data-wordId")
+            wordId: deleteButton.getAttribute("data-wordId")
           })
         })
 

@@ -4,7 +4,7 @@
   <a href="/add"><button class="btn btn-secondary">Add Word</button></a>
   {% for row in rows %}
     <li class="list-unstyled">
-      <a class="text-info" href="/{{ row[1] }}">{{ row[1] }}</a>
+      <a class="text-info" href="/word?w={{ row[1] }}">{{ row[1] }}</a>
     </li>
   {% endfor %}
 {% endblock %}

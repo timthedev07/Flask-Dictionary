@@ -19,6 +19,20 @@ def index():
 
     return render_template("index.html", rows=stuff)
 
+@app.route("/word")
+def word_info():
+    word = request.args.get("w")
+    if not word:
+        return render_template("error.html", error="Invalid Word")
+
+    with connect(DB_FILENAME) as conn:
+        db = conn.cursor()
+        row = db.execute(f"SELECT * FROM {TABLE_NAME} WHERE word = :word", {"word": word.lower()}).fetchone()
+        if not row:
+            return render_template("error.html", error="Invalid Word")
+
+        return render_template("word.html", row=row)
+
 @app.route("/add", methods=["GET", "POST"])
 def add():
     method = request.method

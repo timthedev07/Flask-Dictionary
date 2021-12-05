@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Edit word
+{% endblock %}
+
+{% block main %}
+  <h2>Edit word: {{ row[1] }}</h2>
+  <form action="/add" method="post" class="px-3">
+    <div class="form-group my-3">
+      <label for="word">Word</label>
+      <input required name="word" class="form-control bg-dark text-white" id="word" placeholder="Word" value={{ row[1] }}>
+    </div>
+    <div class="form-group my-3">
+      <label for="def">Definition</label>
+      <textarea required name="def" class="form-control bg-dark text-white" id="def" placeholder="Definition">{{ row[2] }}</textarea>
+    </div>
+    <div class="form-group my-3">
+      <label for="type">Type</label>
+      <select required name="type" class="form-control bg-dark text-white" id="type">
+        <option value="adjective">Adjective</option>
+        <option value="noun">Noun</option>
+        <option value="phrase">Phrase</option>
+        <option value="adverb">Adverb</option>
+      </select>
+    </div>
+    <button class="btn btn-primary my-2">Add</button>
+  </form>
+{% endblock %}

@@ -63,3 +63,13 @@ def delete():
         cursor = conn.cursor()
         result = cursor.execute(f"DELETE FROM {TABLE_NAME} WHERE id = :word_id", {"word_id": word_id})
         return Response({"error": ""}, status=200)
+
+@app.route("/edit/<word>", methods=["POST", "GET"])
+def edit_word(word: str):
+    if request.method == "POST":
+        pass
+    else:
+        with connect(DB_FILENAME) as conn:
+            cursor = conn.cursor()
+            row = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE word = :word", {"word": word}).fetchone()
+            return render_template("edit.html", row=row)

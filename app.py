@@ -40,9 +40,14 @@ def add():
     if method == "POST":
         word: str = request.form.get("word")
         definition = request.form.get("def")
+        wordType = request.form.get("type").lower()
+
+        # check word type
+        if not wordType in ["adjective", "noun", "phrase", "adverb"]:
+            return render_template("error.html", error="Invalid Word Type")
 
         with connect(DB_FILENAME) as conn:
             db = conn.cursor()
-            result = db.execute(f"INSERT INTO {TABLE_NAME} (word, def) VALUES (?, ?)", (word.lower(), definition))
+            result = db.execute(f"INSERT INTO {TABLE_NAME} (word, def, wordType) VALUES (?, ?, ?)", (word.lower(), definition, wordType))
 
         return redirect("/")

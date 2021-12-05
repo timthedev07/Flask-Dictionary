@@ -25,11 +25,11 @@ def add():
     if method == "GET":
         return render_template("add.html")
     if method == "POST":
-        word = request.form.get("word")
+        word: str = request.form.get("word")
         definition = request.form.get("def")
 
         with connect(DB_FILENAME) as conn:
             db = conn.cursor()
-            result = db.execute(f"INSERT INTO {TABLE_NAME} (word, def) VALUES (?, ?)", (word, definition))
+            result = db.execute(f"INSERT INTO {TABLE_NAME} (word, def) VALUES (?, ?)", (word.lower(), definition))
 
         return redirect("/")

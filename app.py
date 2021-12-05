@@ -15,7 +15,6 @@ def index():
 
         for row in result:
             stuff.append(row)
-            print(row)
 
     return render_template("index.html", rows=stuff)
 

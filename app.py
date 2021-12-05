@@ -1,8 +1,19 @@
-from sqlite3 import Connection
+from flask import Flask, render_template
+from sqlite3 import connect
+from constants import TABLE_NAME
 
-def main():
-    pass
+app = Flask(__name__)
 
+@app.route("/")
+def index():
+    stuff = []
 
-if __name__ == "__main__":
-    main()
+    with connect("db.db") as conn:
+        db = conn.cursor()
+        result = db.execute(f"SELECT * FROM {TABLE_NAME}")
+
+        for row in result:
+            stuff.append(row)
+            print(row)
+
+    return render_template("index.html", rows=stuff)

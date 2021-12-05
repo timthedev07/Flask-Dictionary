@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, Response
 from sqlite3 import connect
 from constants import TABLE_NAME, DB_FILENAME
 
@@ -51,3 +51,15 @@ def add():
             result = db.execute(f"INSERT INTO {TABLE_NAME} (word, def, wordType) VALUES (?, ?, ?)", (word.lower(), definition, wordType))
 
         return redirect("/")
+
+@app.route("/delete-word", methods=["DELETE"])
+def delete():
+    word_id = request.get_json(force=True).get("wordId")
+
+    if not word_id:
+        return Response({"error": "Invalid Word Id"}, status=400)
+
+    with connect(DB_FILENAME) as conn:
+        cursor = conn.cursor()
+        result = cursor.execute(f"DELETE FROM {TABLE_NAME} WHERE id = :word_id", {"word_id": word_id})
+        return Response({"error": ""}, status=200)

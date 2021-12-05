@@ -1,0 +1,18 @@
+.word-item {
+  margin: 20px;
+  padding: 10px;
+  background-color: #2d2d2d;
+  width: 300px;
+  height: 120px;
+  display: block;
+  border-radius: 15px;
+  border: #202020 solid 1px;
+  box-shadow: 0 2px 2px 0 black;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.word-item:hover {
+  box-shadow: 0 8px 8px 0 black;
+  transition: 0.3s;
+}

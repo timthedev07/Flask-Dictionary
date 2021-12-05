@@ -8,9 +8,15 @@ Home
 {% block main %}
   <h1>FlaskDictionary</h1>
   <a href="/add"><button class="btn btn-secondary">Add Word</button></a>
-  {% for row in rows %}
-    <li class="list-unstyled">
-      <a class="text-info" href="/word?w={{ row[1] }}">{{ row[1] }}</a>
-    </li>
-  {% endfor %}
+  <ul class="list-unstyled">
+    {% for row in rows %}
+      <li class="word-item">
+        <a href="/word?w={{ row[1] }}" class="text-white text-decoration-none">
+          <h4>{{ row[1][0]|upper }}{{ row[1][1:] }}</h4>
+          <h6 style="color: #bababa;">{{ row[4] }}</h6>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
 {% endblock %}

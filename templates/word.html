@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
+
+{% block title %}
+{{ row[1] }}
+{% endblock %}
+
 {% block main %}
-  <h2>{{ row[1] }}</h2>
+  <h2>{{ row[1][0]|upper}}{{ row[1][1:] }}</h2>
   <p>{{ row[2] }}</p>
 {% endblock %}

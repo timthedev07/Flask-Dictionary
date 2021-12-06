@@ -5,10 +5,10 @@ Edit term
 {% endblock %}
 
 {% block main %}
-  <h2>Edit term: {{ row[1] }}</h2>
+  <h2>Edit Term: {{ row[1] }}</h2>
   <form action="/edit/{{row[1]}}" method="post" class="px-3">
     <div class="form-group my-3">
-      <label for="term">term</label>
+      <label for="term">Term</label>
       <input required name="term" class="form-control bg-dark text-white" id="term" placeholder="term" value={{ row[1] }}>
     </div>
     <div class="form-group my-3">
@@ -20,6 +20,7 @@ Edit term
       <select required name="type" class="form-control bg-dark text-white" id="type">
         <option {% if row[4] == 'adjective' %}selected{% endif %} value="adjective">Adjective</option>
         <option {% if row[4] == 'noun' %}selected{% endif %} value="noun">Noun</option>
+        <option {% if row[4] == 'verb' %}selected{% endif %} value="verb">Verb</option>
         <option {% if row[4] == 'phrase' %}selected{% endif %} value="phrase">Phrase</option>
         <option {% if row[4] == 'adverb' %}selected{% endif %} value="adverb">Adverb</option>
       </select>

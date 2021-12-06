@@ -22,7 +22,7 @@ def index():
 def term_info():
     term = request.args.get("w")
     if not term:
-        return render_template("error.html", error="Invalid term")
+        return render_template("error.html", error="Invalid Term")
 
     with connect(DB_FILENAME) as conn:
         db = conn.cursor()
@@ -43,7 +43,7 @@ def add():
         termType = request.form.get("type")
 
         if not term:
-            return render_template("error.html", error="Invalid term")
+            return render_template("error.html", error="Invalid Term")
         if not definition:
             return render_template("error.html", error="Invalid Definition")
         if not termType:
@@ -52,8 +52,8 @@ def add():
         termType = termType.lower()
 
         # check term type
-        if not termType in ["adjective", "noun", "phrase", "adverb"]:
-            return render_template("error.html", error="Invalid term Type")
+        if not termType in ["adjective", "noun", "phrase", "adverb", "verb"]:
+            return render_template("error.html", error="Invalid Term Type")
 
         with connect(DB_FILENAME) as conn:
             db = conn.cursor()

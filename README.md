@@ -8,6 +8,7 @@ Get your own personal dictionary:
 
 ```bash
 git clone https://github.com/timthedev07/Flask-Dictionary.git
+cd Flask-Dictionary
 rm -f db.db
 sh setup.sh
 pip install -r requirements.tsx

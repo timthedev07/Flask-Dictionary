@@ -59,7 +59,7 @@ def add():
             db = conn.cursor()
             result = db.execute(f"INSERT INTO {TABLE_NAME} (word, def, wordType) VALUES (?, ?, ?)", (word.lower(), definition, wordType))
 
-        return redirect("/")
+        return redirect(f"/word?w={word}")
 
 @app.route("/delete-word", methods=["DELETE"])
 def delete():

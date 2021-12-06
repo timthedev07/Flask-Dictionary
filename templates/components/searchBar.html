@@ -1,6 +1,6 @@
 {% macro searchBar(existingQuery="") %}
   <div class="input-group mb-3">
-    <input id="search-input" type="text" class="form-control bg-dark text-white" placeholder="Search term..." aria-describedby="basic-addon2" value={{existingQuery}} />
+    <input id="search-input" type="text" class="form-control bg-dark text-white" placeholder="Search term..." aria-describedby="basic-addon2" value="{{existingQuery}}" />
     <div class="input-group-append">
       <button id="search-go-button" class="btn btn-success" type="button">Go</button>
     </div>

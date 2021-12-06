@@ -1,4 +1,5 @@
-{% from "wordListItem.html" import wordListItem %}
+{% from "components/wordListItem.html" import wordListItem %}
+{% from "components/searchBar.html" import searchBar %}
 {% extends "layout.html" %}
 
 {% block title %}
@@ -8,17 +9,11 @@ Home
 
 {% block main %}
   <h1>FlaskDictionary</h1>
-  <div class="input-group mb-3">
-    <input type="text" class="form-control bg-dark text-white" placeholder="Search word..." aria-describedby="basic-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-success" type="button">Go</button>
-    </div>
-  </div>
+  {{ searchBar() }}
   <a href="/add"><button class="btn btn-sm btn-secondary">Add Word</button></a>
   <ul class="list-unstyled d-flex">
     {% for row in rows %}
       {{ wordListItem(row) }}
     {% endfor %}
   </ul>
-
 {% endblock %}

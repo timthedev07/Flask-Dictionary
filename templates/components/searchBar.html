@@ -1,0 +1,18 @@
+{% macro searchBar() %}
+  <div class="input-group mb-3">
+    <input id="search-input" type="text" class="form-control bg-dark text-white" placeholder="Search word..." aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button id="search-go-button" class="btn btn-success" type="button">Go</button>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const goButton = document.getElementById("search-go-button");
+        goButton.addEventListener("click", () => {
+          const queryInput = document.getElementById("search-input");
+          const query = queryInput.value;
+          window.location.replace(`/search?q=${query}`);
+        });
+      })
+    </script>
+  </div>
+{% endmacro %}

@@ -1,4 +1,4 @@
-.word-item {
+.term-item {
   margin: 20px;
   padding: 10px;
   background-color: #2d2d2d;
@@ -12,7 +12,7 @@
   cursor: pointer;
 }
 
-.word-item:hover {
+.term-item:hover {
   box-shadow: 0 8px 8px 0 black;
   transition: 0.3s;
 }

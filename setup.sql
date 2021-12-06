@@ -1,7 +1,7 @@
-CREATE TABLE IF NOT EXISTS words (
+CREATE TABLE IF NOT EXISTS terms (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  word TEXT UNIQUE,
+  term TEXT UNIQUE,
   def TEXT NOT NULL,
   createdAt datetime default current_timestamp,
-  wordType TEXT NOT NULL
+  termType TEXT NOT NULL
 );

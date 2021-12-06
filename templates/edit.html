@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Edit word
+Edit term
 {% endblock %}
 
 {% block main %}
-  <h2>Edit word: {{ row[1] }}</h2>
+  <h2>Edit term: {{ row[1] }}</h2>
   <form action="/edit/{{row[1]}}" method="post" class="px-3">
     <div class="form-group my-3">
-      <label for="word">Word</label>
-      <input required name="word" class="form-control bg-dark text-white" id="word" placeholder="Word" value={{ row[1] }}>
+      <label for="term">term</label>
+      <input required name="term" class="form-control bg-dark text-white" id="term" placeholder="term" value={{ row[1] }}>
     </div>
     <div class="form-group my-3">
       <label for="def">Definition</label>

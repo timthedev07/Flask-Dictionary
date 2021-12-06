@@ -1,4 +1,4 @@
-{% from "components/wordListItem.html" import wordListItem %}
+{% from "components/termListItem.html" import termListItem %}
 {% from "components/searchBar.html" import searchBar %}
 {% extends "layout.html" %}
 
@@ -10,10 +10,10 @@ Home
 {% block main %}
   <h1>FlaskDictionary</h1>
   {{ searchBar() }}
-  <a href="/add"><button class="btn btn-sm btn-secondary">Add Word</button></a>
+  <a href="/add"><button class="btn btn-sm btn-secondary">Add term</button></a>
   <ul class="list-unstyled d-flex">
     {% for row in rows %}
-      {{ wordListItem(row) }}
+      {{ termListItem(row) }}
     {% endfor %}
   </ul>
 {% endblock %}

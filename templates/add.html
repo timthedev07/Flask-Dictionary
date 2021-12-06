@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Add Word
+Add term
 {% endblock %}
 
 {% block main %}
-  <h2>Add word</h2>
+  <h2>Add term</h2>
   <form action="/add" method="post" class="px-3">
     <div class="form-group my-3">
-      <label for="word">Word</label>
-      <input required name="word" class="form-control bg-dark text-white" id="word" placeholder="Word">
+      <label for="term">term</label>
+      <input required name="term" class="form-control bg-dark text-white" id="term" placeholder="term">
     </div>
     <div class="form-group my-3">
       <label for="def">Definition</label>
@@ -18,7 +18,7 @@ Add Word
     <div class="form-group my-3">
       <label for="type">Type</label>
       <select required name="type" class="form-control bg-dark text-white" id="type">
-        <option selected value="" disabled>SELECT WORD TYPE</option>
+        <option selected value="" disabled>SELECT term TYPE</option>
         <option value="adjective">Adjective</option>
         <option value="noun">Noun</option>
         <option value="phrase">Phrase</option>

@@ -1,26 +1,26 @@
-{% from "components/wordListItem.html" import wordListItem %}
+{% from "components/termListItem.html" import termListItem %}
 {% from "components/searchBar.html" import searchBar %}
 {% extends "layout.html" %}
 
 {% block title %}
-Search - {{ keyword }}
+Search - {{ keyterm }}
 {% endblock %}
 
 
 {% block main %}
-  <h1>Search Results for "{{ keyword }}"</h1>
+  <h1>Search Results for "{{ keyterm }}"</h1>
   {{ searchBar() }}
   <a href="/">
     <button class="btn btn-light">Home</button>
   </a>
   <a href="/add">
-    <button class="btn btn-sm btn-secondary">Add Word</button>
+    <button class="btn btn-sm btn-secondary">Add term</button>
   </a>
   {% if hasItems %}
     {% for row in rows %}
-      {{ wordListItem(row) }}
+      {{ termListItem(row) }}
     {% endfor %}
   {% else %}
-    <h5>No words were found.</h5>
+    <h5>No terms were found.</h5>
   {% endif %}
 {% endblock %}

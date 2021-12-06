@@ -18,19 +18,19 @@ def index():
 
     return render_template("index.html", rows=stuff)
 
-@app.route("/word")
-def word_info():
-    word = request.args.get("w")
-    if not word:
-        return render_template("error.html", error="Invalid Word")
+@app.route("/term")
+def term_info():
+    term = request.args.get("w")
+    if not term:
+        return render_template("error.html", error="Invalid term")
 
     with connect(DB_FILENAME) as conn:
         db = conn.cursor()
-        row = db.execute(f"SELECT * FROM {TABLE_NAME} WHERE word = :word", {"word": word.lower()}).fetchone()
+        row = db.execute(f"SELECT * FROM {TABLE_NAME} WHERE term = :term", {"term": term.lower()}).fetchone()
         if not row:
-            return render_template("error.html", error="Invalid Word")
+            return render_template("error.html", error="Invalid term")
 
-        return render_template("word.html", row=row)
+        return render_template("term.html", row=row)
 
 @app.route("/add", methods=["GET", "POST"])
 def add():
@@ -38,80 +38,80 @@ def add():
     if method == "GET":
         return render_template("add.html")
     if method == "POST":
-        word = request.form.get("word")
+        term = request.form.get("term")
         definition = request.form.get("def")
-        wordType = request.form.get("type")
+        termType = request.form.get("type")
 
-        if not word:
-            return render_template("error.html", error="Invalid Word")
+        if not term:
+            return render_template("error.html", error="Invalid term")
         if not definition:
             return render_template("error.html", error="Invalid Definition")
-        if not wordType:
+        if not termType:
             return render_template("error.html", error="Please Select The Appropriate Type")
 
-        wordType = wordType.lower()
+        termType = termType.lower()
 
-        # check word type
-        if not wordType in ["adjective", "noun", "phrase", "adverb"]:
-            return render_template("error.html", error="Invalid Word Type")
+        # check term type
+        if not termType in ["adjective", "noun", "phrase", "adverb"]:
+            return render_template("error.html", error="Invalid term Type")
 
         with connect(DB_FILENAME) as conn:
             db = conn.cursor()
-            result = db.execute(f"INSERT INTO {TABLE_NAME} (word, def, wordType) VALUES (?, ?, ?)", (word.lower(), definition, wordType))
+            result = db.execute(f"INSERT INTO {TABLE_NAME} (term, def, termType) VALUES (?, ?, ?)", (term.lower(), definition, termType))
 
-        return redirect(f"/word?w={word}")
+        return redirect(f"/term?w={term}")
 
-@app.route("/delete-word", methods=["DELETE"])
+@app.route("/delete-term", methods=["DELETE"])
 def delete():
-    word_id = request.get_json(force=True).get("wordId")
+    term_id = request.get_json(force=True).get("termId")
 
-    if not word_id:
-        return Response({"error": "Invalid Word Id"}, status=400)
+    if not term_id:
+        return Response({"error": "Invalid term Id"}, status=400)
 
     with connect(DB_FILENAME) as conn:
         cursor = conn.cursor()
-        result = cursor.execute(f"DELETE FROM {TABLE_NAME} WHERE id = :word_id", {"word_id": word_id})
+        result = cursor.execute(f"DELETE FROM {TABLE_NAME} WHERE id = :term_id", {"term_id": term_id})
         return Response({"error": ""}, status=200)
 
-@app.route("/edit/<word>", methods=["POST", "GET"])
-def edit_word(word: str):
+@app.route("/edit/<term>", methods=["POST", "GET"])
+def edit_term(term: str):
     if request.method == "POST":
-        new_word = request.form.get("word")
+        new_term = request.form.get("term")
         new_definition = request.form.get("def")
         new_type = request.form.get("type")
 
-        if not new_word:
-            return render_template("error.html", error="Invalid Word Entered")
+        if not new_term:
+            return render_template("error.html", error="Invalid term Entered")
         if not new_definition:
             return render_template("error.html", error="Invalid Definition Entered")
         if not new_type:
-            return render_template("error.html", error="Invalid Word Type Selected")
+            return render_template("error.html", error="Invalid term Type Selected")
 
         with connect(DB_FILENAME) as conn:
             cursor = conn.cursor()
-            cursor.execute(f"UPDATE {TABLE_NAME} SET word = :word, def = :def, wordType = :wordType WHERE word = :search_word", {
-                "word": new_word,
+            cursor.execute(f"UPDATE {TABLE_NAME} SET term = :term, def = :def, termType = :termType WHERE term = :search_term", {
+                "term": new_term,
                 "def": new_definition,
-                "wordType": new_type,
-                "search_word": word
+                "termType": new_type,
+                "search_term": term
             })
-            return redirect(f"/word?w={new_word}")
+            return redirect(f"/term?w={new_term}")
     else:
         with connect(DB_FILENAME) as conn:
             cursor = conn.cursor()
-            row = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE word = :word", {"word": word}).fetchone()
+            row = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE term = :term", {"term": term}).fetchone()
             return render_template("edit.html", row=row)
 
 @app.route("/search")
-def word_search():
-    keyword = request.args.get("q")
-    if not keyword:
-        return render_template("Invalid Word")
+def term_search():
+    keyterm = request.args.get("q")
+    if not keyterm:
+        return render_template("Invalid term")
 
-    keyword = keyword.lower()
+    keyterm = keyterm.lower()
 
     with connect(DB_FILENAME) as conn:
         cursor = conn.cursor()
-        rows = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE word LIKE :keyword", {"keyword": f"%{keyword}%"}).fetchall()
-        return render_template("searchResult.html", rows=rows, keyword=keyword, hasItems=len(rows) > 0)
+        rows = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE term LIKE :keyterm", {"keyterm": f"%{keyterm}%"}).fetchall()
+        return render_template("searchResult.html", rows=rows, keyterm=keyterm, hasItems=len(rows) > 0)
 

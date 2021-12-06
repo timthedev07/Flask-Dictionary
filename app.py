@@ -101,3 +101,17 @@ def edit_word(word: str):
             cursor = conn.cursor()
             row = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE word = :word", {"word": word}).fetchone()
             return render_template("edit.html", row=row)
+
+@app.route("/search")
+def word_search():
+    keyword = request.args.get("q")
+    if not keyword:
+        return render_template("Invalid Word")
+
+    keyword = keyword.lower()
+
+    with connect(DB_FILENAME) as conn:
+        cursor = conn.cursor()
+        rows = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE word LIKE :keyword", {"keyword": f"%{keyword}%"}).fetchall()
+        return render_template("searchResult.html", rows=rows, keyword=keyword, hasItems=len(rows) > 0)
+

@@ -1,0 +1,18 @@
+{% from "wordListItem.html" import wordListItem %}
+{% extends "layout.html" %}
+
+{% block title %}
+Search - {{ keyword }}
+{% endblock %}
+
+
+{% block main %}
+  <h1>Search Results for {{ keyword }}</h1>
+  {% if hasItems %}
+    {% for row in rows %}
+      {{ wordListItem(row) }}
+    {% endfor %}
+  {% else %}
+    <h5>No words were found.</h5>
+  {% endif %}
+{% endblock %}

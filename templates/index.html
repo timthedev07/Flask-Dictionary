@@ -11,7 +11,7 @@ Home
   <h1>FlaskDictionary</h1>
   {{ searchBar() }}
   <a href="/add"><button class="btn btn-sm btn-secondary">Add term</button></a>
-  <ul class="list-unstyled d-flex">
+  <ul class="list-unstyled d-flex justify-content-center" style="width: 100%; flex-wrap: wrap;">
     {% for row in rows %}
       {{ termListItem(row) }}
     {% endfor %}

@@ -15,4 +15,5 @@
 .term-item:hover {
   box-shadow: 0 8px 8px 0 black;
   transition: 0.3s;
+  background-color: #4b4b4b;
 }

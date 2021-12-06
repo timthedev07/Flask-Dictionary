@@ -17,9 +17,11 @@ Search - {{ keyterm }}
     <button class="btn btn-sm btn-secondary">Add term</button>
   </a>
   {% if hasItems %}
-    {% for row in rows %}
-      {{ termListItem(row) }}
-    {% endfor %}
+    <ul class="list-unstyled d-flex justify-content-center" style="width: 100%; flex-wrap: wrap;">
+      {% for row in rows %}
+        {{ termListItem(row) }}
+      {% endfor %}
+    </ul>
   {% else %}
     <h5 style="margin: 20px;">No terms were found...</h5>
   {% endif %}

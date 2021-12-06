@@ -7,8 +7,9 @@ Home
 
 {% block main %}
   <h1>FlaskDictionary</h1>
-  <a href="/add"><button class="btn btn-secondary">Add Word</button></a>
-  <ul class="list-unstyled">
+  <input class="form-control bg-dark text-white" placeholder="Search Word...">
+  <a href="/add"><button class="btn btn-sm btn-secondary">Add Word</button></a>
+  <ul class="list-unstyled d-flex">
     {% for row in rows %}
     <a href="/word?w={{ row[1] }}" class="text-white text-decoration-none">
       <li class="word-item">

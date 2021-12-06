@@ -7,7 +7,9 @@
 {% block main %}
   <h1>{{ row[1][0]|upper}}{{ row[1][1:] }}</h1>
   <h5><i>{{ row[4] }}</i></h5>
-  <p>{{ row[2] }}</p>
+  {% autoescape false %}
+  <p>{{ row[2] | replace("\n", "<br/>") }}</p>
+  {% endautoescape %}
   <button data-termId={{ row[0] }} id="del-term-button" class="btn btn-danger">Delete term</button>
   <a href="/edit/{{ row[1] }}">
     <button class="btn btn-info">Edit term</button>

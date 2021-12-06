@@ -67,7 +67,26 @@ def delete():
 @app.route("/edit/<word>", methods=["POST", "GET"])
 def edit_word(word: str):
     if request.method == "POST":
-        pass
+        new_word = request.form.get("word")
+        new_definition = request.form.get("def")
+        new_type = request.form.get("type")
+
+        if not new_word:
+            return render_template("error.html", error="Invalid Word Entered")
+        if not new_definition:
+            return render_template("error.html", error="Invalid Definition Entered")
+        if not new_type:
+            return render_template("error.html", error="Invalid Word Type Selected")
+
+        with connect(DB_FILENAME) as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"UPDATE {TABLE_NAME} SET word = :word, def = :def, wordType = :wordType WHERE word = :search_word", {
+                "word": new_word,
+                "def": new_definition,
+                "wordType": new_type,
+                "search_word": word
+            })
+            return redirect(f"/word?w={new_word}")
     else:
         with connect(DB_FILENAME) as conn:
             cursor = conn.cursor()

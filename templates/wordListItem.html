@@ -1,0 +1,8 @@
+{% macro wordListItem(row) %}
+  <a href="/word?w={{ row[1] }}" class="text-white text-decoration-none">
+    <li class="word-item">
+      <h4>{{ row[1][0]|upper }}{{ row[1][1:] }}</h4>
+      <h6 style="color: #bababa;">{{ row[4] }}</h6>
+    </li>
+  </a>
+{% endmacro %}

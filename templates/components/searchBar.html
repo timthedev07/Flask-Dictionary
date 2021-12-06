@@ -1,27 +1,43 @@
-{% macro searchBar(existingQuery="") %}
+{% macro searchBar(existingQuery="", existingType="") %}
+<div class="px-4" style="border-radius: 15px; border: #606060 solid 1px; padding: 10px; margin-bottom: 20px;">
+  <h3>Search</h3>
   <div class="input-group mb-3">
     <input id="search-input" type="text" class="form-control bg-dark text-white" placeholder="Search term..." aria-describedby="basic-addon2" value="{{existingQuery}}" />
     <div class="input-group-append">
       <button id="search-go-button" class="btn btn-success" type="button">Go</button>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const goButton = document.getElementById("search-go-button");
-        const queryInput = document.getElementById("search-input");
-
-        const handleGoSearch = () => {
-          const query = queryInput.value;
-          window.location.replace(`/search?q=${query}`);
-        };
-
-        goButton.addEventListener("click", handleGoSearch);
-        queryInput.addEventListener("keydown", (e) => {
-          if (e.key === "Enter") {
-            handleGoSearch();
-          }
-        })
-
-      })
-    </script>
   </div>
+  <div class="form-group my-3">
+    <label for="type">Type</label>
+    <select id="term-type" required name="type" class="form-control bg-dark text-white" id="type">
+      <option {% if existingType == '' %}selected{% endif %} value="">All</option>
+      <option {% if existingType == 'adjective' %}selected{% endif %} value="adjective">Adjective</option>
+      <option {% if existingType == 'noun' %}selected{% endif %} value="noun">Noun</option>
+      <option {% if existingType == 'verb' %}selected{% endif %} value="verb">Verb</option>
+      <option {% if existingType == 'phrase' %}selected{% endif %} value="phrase">Phrase</option>
+      <option {% if existingType == 'adverb' %}selected{% endif %} value="adverb">Adverb</option>
+    </select>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const goButton = document.getElementById("search-go-button");
+      const queryInput = document.getElementById("search-input");
+      const typeInput = document.getElementById("term-type");
+
+      const handleGoSearch = () => {
+        const query = queryInput.value;
+        const type = typeInput.value;
+        window.location.replace(`/search?q=${query}${type && type !== "" ? `&t=${type}` : ""}`);
+      };
+
+      goButton.addEventListener("click", handleGoSearch);
+      queryInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          handleGoSearch();
+        }
+      })
+
+    })
+  </script>
+</div>
 {% endmacro %}

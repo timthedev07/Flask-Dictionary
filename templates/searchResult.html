@@ -9,7 +9,7 @@ Search - {{ keyword }}
 
 {% block main %}
   <h1>Search Results for "{{ keyword }}"</h1>
-  {{ searchBar(keyword) }}
+  {{ searchBar(keyword, selectedType) }}
   <a href="/">
     <button class="btn btn-sm btn-light">Home</button>
   </a>

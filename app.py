@@ -105,6 +105,8 @@ def edit_term(term: str):
 @app.route("/search")
 def term_search():
     keyword = request.args.get("q")
+    termType = request.args.get("t")
+
     if not keyword:
         return render_template("Invalid term")
 
@@ -112,6 +114,11 @@ def term_search():
 
     with connect(DB_FILENAME) as conn:
         cursor = conn.cursor()
-        rows = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE term LIKE :keyword", {"keyword": f"%{keyword}%"}).fetchall()
-        return render_template("searchResult.html", rows=rows, keyword=keyword, hasItems=len(rows) > 0)
+        sqlString = f"SELECT * FROM {TABLE_NAME} WHERE term LIKE :keyword"
+        values = {"keyword": f"%{keyword}%"}
+        if termType and termType != "":
+            sqlString += " AND termType = :termType"
+            values["termType"] = termType
+        rows = cursor.execute(sqlString, values).fetchall()
+        return render_template("searchResult.html", rows=rows, keyword=keyword, hasItems=len(rows) > 0, selectedType=termType)
 

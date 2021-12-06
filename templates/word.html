@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block main %}
-  <h2>{{ row[1][0]|upper}}{{ row[1][1:] }}</h2>
+  <h1>{{ row[1][0]|upper}}{{ row[1][1:] }}</h1>
+  <h5><i>{{ row[4] }}</i></h5>
   <p>{{ row[2] }}</p>
   <button data-wordId={{ row[0] }} id="del-word-button" class="btn btn-danger">Delete word</button>
   <a href="/edit/{{ row[1] }}">

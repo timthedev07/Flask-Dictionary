@@ -7,11 +7,20 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const goButton = document.getElementById("search-go-button");
-        goButton.addEventListener("click", () => {
-          const queryInput = document.getElementById("search-input");
+        const queryInput = document.getElementById("search-input");
+
+        const handleGoSearch = () => {
           const query = queryInput.value;
           window.location.replace(`/search?q=${query}`);
-        });
+        };
+
+        goButton.addEventListener("click", handleGoSearch);
+        queryInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            handleGoSearch();
+          }
+        })
+
       })
     </script>
   </div>

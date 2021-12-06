@@ -104,14 +104,14 @@ def edit_term(term: str):
 
 @app.route("/search")
 def term_search():
-    keyterm = request.args.get("q")
-    if not keyterm:
+    keyword = request.args.get("q")
+    if not keyword:
         return render_template("Invalid term")
 
-    keyterm = keyterm.lower()
+    keyword = keyword.lower()
 
     with connect(DB_FILENAME) as conn:
         cursor = conn.cursor()
-        rows = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE term LIKE :keyterm", {"keyterm": f"%{keyterm}%"}).fetchall()
-        return render_template("searchResult.html", rows=rows, keyterm=keyterm, hasItems=len(rows) > 0)
+        rows = cursor.execute(f"SELECT * FROM {TABLE_NAME} WHERE term LIKE :keyword", {"keyword": f"%{keyword}%"}).fetchall()
+        return render_template("searchResult.html", rows=rows, keyword=keyword, hasItems=len(rows) > 0)
 

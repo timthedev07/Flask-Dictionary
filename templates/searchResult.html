@@ -3,13 +3,13 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Search - {{ keyterm }}
+Search - {{ keyword }}
 {% endblock %}
 
 
 {% block main %}
-  <h1>Search Results for "{{ keyterm }}"</h1>
-  {{ searchBar() }}
+  <h1>Search Results for "{{ keyword }}"</h1>
+  {{ searchBar(keyword) }}
   <a href="/">
     <button class="btn btn-sm btn-light">Home</button>
   </a>

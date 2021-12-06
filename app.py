@@ -38,9 +38,18 @@ def add():
     if method == "GET":
         return render_template("add.html")
     if method == "POST":
-        word: str = request.form.get("word")
+        word = request.form.get("word")
         definition = request.form.get("def")
-        wordType = request.form.get("type").lower()
+        wordType = request.form.get("type")
+
+        if not word:
+            return render_template("error.html", error="Invalid Word")
+        if not definition:
+            return render_template("error.html", error="Invalid Definition")
+        if not wordType:
+            return render_template("error.html", error="Please Select The Appropriate Type")
+
+        wordType = wordType.lower()
 
         # check word type
         if not wordType in ["adjective", "noun", "phrase", "adverb"]:

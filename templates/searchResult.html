@@ -11,7 +11,7 @@ Search - {{ keyterm }}
   <h1>Search Results for "{{ keyterm }}"</h1>
   {{ searchBar() }}
   <a href="/">
-    <button class="btn btn-light">Home</button>
+    <button class="btn btn-sm btn-light">Home</button>
   </a>
   <a href="/add">
     <button class="btn btn-sm btn-secondary">Add term</button>
@@ -21,6 +21,6 @@ Search - {{ keyterm }}
       {{ termListItem(row) }}
     {% endfor %}
   {% else %}
-    <h5>No terms were found.</h5>
+    <h5 style="margin: 20px;">No terms were found...</h5>
   {% endif %}
 {% endblock %}
